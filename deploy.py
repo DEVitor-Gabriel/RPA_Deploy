@@ -10,8 +10,6 @@ def deploy():
     print(dest)
 
     if os.path.exists(dest):
-        print('aqui')
         shutil.rmtree(dest)
         
     shutil.copytree(orig, dest)
-    print('teminou')
