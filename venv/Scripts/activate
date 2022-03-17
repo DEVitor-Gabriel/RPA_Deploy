@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\python_projects\rpa_deploy\venv"
+VIRTUAL_ENV="C:\python_projects\rpa_deploy\RPA_Deploy\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

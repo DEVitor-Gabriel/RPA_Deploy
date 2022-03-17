@@ -1,17 +1,32 @@
-from asyncio.windows_events import NULL
 from tkinter import *
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from tkinter.messagebox import showinfo
 
+from pandas import options
+from base import base
+from atualizar_planilha import atualizar_planilha
+from deploy import deploy
 
+lista_operacoes = base()
 
 def btn_clicked():
-    if (entry0.get() == '' or entry1.get() == ''):
-        print('erro')
-        showinfo(title='Erro', message='Todos os campos precisam ser preenchidos')
+    b0['state'] = DISABLED,
+    OperacaoComboBox['state'] = 'disabled'
+    BotComboBox['state'] = 'disabled'
+
+    if (OperacaoComboBox.get() == '' or BotComboBox.get() == ''):
+        messagebox.showerror(title='Erro', message='Todos os campos precisam ser preenchidos')
     else:
-        print(f"Operação Selecionada {entry0.get()}")
-        print(f"Bot Selecionado {entry1.get()}")
+        msg_box = messagebox.askyesno(title='Confirmar', message='Tem certeza que deseja realizar o Deploy ?')
+
+        if (msg_box == True):
+            atualizar_planilha(OperacaoComboBox.get(),BotComboBox.get())
+            deploy()
+
+
+    OperacaoComboBox['state'] = 'readonly'
+    BotComboBox['state'] = 'readonly'
+    b0['state'] = ACTIVE,
 
 
 window = Tk()
@@ -29,7 +44,7 @@ canvas = Canvas(
     relief = "ridge")
 canvas.place(x = 0, y = 0)
 
-background_img = PhotoImage(file = f"background.png")
+background_img = PhotoImage(file = f"images/background.png")
 background = canvas.create_image(
     563.0, 352.5,
     image=background_img)
@@ -40,40 +55,23 @@ canvas.create_text(
     fill = "#ffffff",
     font = ("DoppioOne-Regular", int(26.0)))
 
-entry0_img = PhotoImage(file = f"img_textBox0.png")
-entry0_bg = canvas.create_image(
+OperacaoComboBox_img = PhotoImage(file = f"images/img_textBox0.png")
+OperacaoComboBox_bg = canvas.create_image(
     218.0, 299.5,
-    image = entry0_img)
-
-
-def month_changed(event):
-    """ handle the month changed event """
-    showinfo(
-        title='Result',
-        message=f'You selected {selected_month.get()}!'
+    # image = OperacaoComboBox_img
     )
-    entry0['str'] = 'disable'
 
-selected_month = StringVar()
-
-entry0 = ttk.Combobox(window, 
-                            # bd = 0,
-                            # bg = "#ffffff",
-                            # highlightthickness = 0,
+OperacaoComboBox = ttk.Combobox(window, 
                             font=("DoppioOne-Regular", int(16.0)),
-                            
-                            textvariable=selected_month)
+                            )
 
-entry0['values'] = ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1']
+OperacaoComboBox['values'] = lista_operacoes
 
-# entry0.bind('<<ComboboxSelected>>', month_changed)
-# entry0.current(0)
-entry0['state'] = 'readonly'
+# OperacaoComboBox.bind('<<ComboboxSelected>>', month_changed)
+# OperacaoComboBox.current(0)
+OperacaoComboBox['state'] = 'readonly'
 
-
-
-
-entry0.place(
+OperacaoComboBox.place(
     x = 33.5, y = 281,
     width = 369.0,
     height = 39)
@@ -84,23 +82,22 @@ canvas.create_text(
     fill = "#000000",
     font = ("DoppioOne-Regular", int(19.0)))
 
-entry1_img = PhotoImage(file = f"img_textBox1.png")
-entry1_bg = canvas.create_image(
+BotComboBox_img = PhotoImage(file = f"images/img_textBox1.png")
+BotComboBox_bg = canvas.create_image(
     218.0, 408.5,
-    image = entry1_img)
+    # image = BotComboBox_img
+    )
 
-entry1 = ttk.Combobox(window, 
-                            # bd = 0,
-                            # bg = "#ffffff",
-                            # highlightthickness = 0,
-                            font=("DoppioOne-Regular", int(16.0)),
+BotComboBox = ttk.Combobox(window, 
+                            font=("DoppioOne-Regular", int(16.0)),                      
                             values=[
-                                    "01", 
-                                    "03"])
+                                    1, 
+                                    3])
 
-entry1.set('03')
+BotComboBox.set(3)
+BotComboBox['state'] = 'readonly'
 
-entry1.place(
+BotComboBox.place(
     x = 33.5, y = 390,
     width = 369.0,
     height = 39)
@@ -111,8 +108,9 @@ canvas.create_text(
     fill = "#000000",
     font = ("DoppioOne-Regular", int(19.0)))
 
-img0 = PhotoImage(file = f"img0.png")
+img0 = PhotoImage(file = f"images/img0.png")
 b0 = Button(
+    background= '#ffffff',
     image = img0,
     borderwidth = 0,
     highlightthickness = 0,
