@@ -53,7 +53,7 @@ background = canvas.create_image(
 
 canvas.create_text(
     210.0, 160.5,
-    text = "Recebimento Automático",
+    text = "Processar Bancos",
     fill = "#ffffff",
     font = ("DoppioOne-Regular", int(26.0)))
 
