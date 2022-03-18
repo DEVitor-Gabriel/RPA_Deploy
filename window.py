@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import ttk, messagebox
 from tkinter.messagebox import showinfo
-
 from pandas import options
 from base import base
 from atualizar_planilha import atualizar_planilha
@@ -20,8 +19,9 @@ def btn_clicked():
         msg_box = messagebox.askyesno(title='Confirmar', message='Tem certeza que deseja realizar o Deploy ?')
 
         if (msg_box == True):
-            atualizar_planilha(OperacaoComboBox.get(),BotComboBox.get())
             deploy()
+            atualizar_planilha(OperacaoComboBox.get(),BotComboBox.get())
+            
 
 
     OperacaoComboBox['state'] = 'readonly'
@@ -29,8 +29,10 @@ def btn_clicked():
     b0['state'] = ACTIVE,
 
 
+
 window = Tk()
 window.title('RPA Deploy')
+window.iconphoto(False, PhotoImage(file='./icon/icon.png'))
 
 window.geometry("1184x678")
 window.configure(bg = "#ffffff")
