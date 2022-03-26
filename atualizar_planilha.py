@@ -13,7 +13,7 @@ def atualizar_planilha(operacao, bot):
         for celula in sheet['A']:
             if celula.value == operacao:
                 linha = celula.row
-                sheet[f'C{linha}'] = int(bot)
+                sheet[f'C{linha}'] = bot
         
         planilha.save(f'C:/Users/{user}/OneDrive - Conveste Serviços Financeiros/UiPath\Recebimento Automático/Horário e Robô por Operação.XLSX')
 

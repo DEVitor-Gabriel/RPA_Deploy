@@ -21,7 +21,7 @@ def btn_clicked():
         if (msg_box == True):
             deploy()
             atualizar_planilha(OperacaoComboBox.get(),BotComboBox.get())
-            
+            messagebox.showinfo(title='Finalizado', message='Deploy finalizado com sucesso!')
 
 
     OperacaoComboBox['state'] = 'readonly'
